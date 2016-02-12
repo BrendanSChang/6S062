@@ -28,12 +28,22 @@
 - (IBAction)weatherButton:(id)sender {
     NSLog(@"Weather Button pressed");
 
+    UIButton *button = sender;
+    button.enabled = NO;
+
     // Hide the keyboard.
     [self.zipcodeField resignFirstResponder];
 
     NSString *zip = self.zipcodeField.text;
     Weather *weather = [[Weather alloc] init];
-    [weather fetchWeatherForZip:zip];
+    [weather fetchWeatherForZip:zip completionHandler:^(BOOL succeeded) {
+        if (succeeded) {
+            NSLog(@"Update succeeded for %@.", zip);
+        } else {
+            NSLog(@"Update failed for %@.", zip);
+        }
+        button.enabled = YES;
+    }];
 
     [self updateLabels:weather];
 }

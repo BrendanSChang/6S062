@@ -16,7 +16,7 @@
 @property NSString *windString;
 @property NSString *visibilityMi;
 
-- (void) fetchWeatherForZip:(NSString *) zip;
+- (void) fetchWeatherForZip:(NSString *) zip completionHandler:(void (^)(BOOL succeeded))handler;
 - (BOOL) parseData:(NSData *) data;
 
 @end
