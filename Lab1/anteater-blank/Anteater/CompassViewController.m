@@ -55,29 +55,56 @@
 
 
 - (void)updateCompass {
-    // Rotate the needle.
+    // Rotate the needle. The provided offset is in radians.
     CGFloat offset = angleOffset - _curHeading;
     _needle.transform = CGAffineTransformMakeRotation(offset);
 
-    // TODO: Update the distance using the haversine formula.
+    // TODO: This code is redundant...there is probably a better way to do this.
+    CLLocationCoordinate2D anthillLoc = [self curSelectedLocation];
+
+    // (lat1,lon1) is the starting point, i.e. the user.
+    // (lat2,lon2) is the ending point, i.e. the anthill.
+    // Each of the values is converted to radians.
+    double lat1 = degToRad(_userLoc.latitude);
+    double lon1 = degToRad(_userLoc.longitude);
+    double lat2 = degToRad(anthillLoc.latitude);
+    double lon2 = degToRad(anthillLoc.longitude);
+
+    // Get the distance using the haversine formula.
+    double d =
+        2*RADIUS*sqrt(
+            pow(sin((lat2-lat1)/2), 2) +
+            cos(lat1)*cos(lat2)*pow(sin((lon2-lon1)/2),2)
+        );
+
+    // Update the labels.
+    self.distanceLabel.text = [NSString stringWithFormat:@"%f", d];
+    self.headingLabel.text = [NSString stringWithFormat:@"%f", radToDeg(offset)];
 }
 
 - (void)calcAngleOffset {
     CLLocationCoordinate2D anthillLoc = [self curSelectedLocation];
-    angleOffset = atan2(
-      sin(anthillLoc.longitude-_userLoc.longitude) *
-        cos(anthillLoc.latitude),
-      cos(_userLoc.latitude)*sin(anthillLoc.latitude) -
-        sin(_userLoc.latitude)*
-          cos(anthillLoc.latitude)*
-          cos(anthillLoc.longitude-_userLoc.longitude)
-    );
+
+    // (lat1,lon1) is the starting point, i.e. the user.
+    // (lat2,lon2) is the ending point, i.e. the anthill.
+    // Each of the values is converted to radians.
+    double lat1 = degToRad(_userLoc.latitude);
+    double lon1 = degToRad(_userLoc.longitude);
+    double lat2 = degToRad(anthillLoc.latitude);
+    double lon2 = degToRad(anthillLoc.longitude);
+
+    angleOffset =
+        atan2(
+            sin(lon2-lon1)*cos(lat2),
+            cos(lat1)*sin(lat2) - sin(lat1)*cos(lat2)*cos(lon2-lon1)
+        );
 }
 
 //TODO: Implement me
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
     _lastHeading = _curHeading;
-    _curHeading = [newHeading trueHeading];
+    _curHeading = degToRad(newHeading.trueHeading);
+    [self updateCompass];
 }
 
 
@@ -87,6 +114,7 @@
     _lastLoc = _userLoc;
     _userLoc = [locations[[locations count] - 1] coordinate];
     [self calcAngleOffset];
+    [self updateCompass];
 }
 
 
@@ -116,6 +144,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component __TVOS_PROHIBITED
 {
     [self calcAngleOffset];
+    [self updateCompass];
 }
 
 

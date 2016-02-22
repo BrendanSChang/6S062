@@ -48,7 +48,6 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:kDATA_FILE_NAME];
-    // NSLog(@"%@", filePath);
     return filePath;
 }
 
@@ -75,6 +74,9 @@
     _f = [self openFileForWriting];
     if (!_f)
         NSAssert(_f,@"Couldn't open file for writing.");
+
+    // Ensure that the header is rewritten after clearing the log file.
+    [self logLineToDataFile:@"Time,Lat,Lon,Altitude,Accuracy,Heading,Speed,Battery\n"];
 }
 
 -(void)startRecordingLocationWithAccuracy:(LocationAccuracy)acc {
