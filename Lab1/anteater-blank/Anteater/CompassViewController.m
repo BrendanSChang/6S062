@@ -20,7 +20,8 @@
     BOOL gotLoc;
     CLLocationCoordinate2D _lastLoc, _userLoc, _targetLoc;
     CGFloat _curHeading, _lastHeading, _scale, _lastMagHeading;
-    double angleOffset;
+    double _angle, _distance;
+    CGFloat _offset;
 }
 
 - (void)viewDidLoad {
@@ -54,50 +55,58 @@
 }
 
 
-- (void)updateCompass {
-    // Rotate the needle. The provided offset is in radians.
-    CGFloat offset = angleOffset - _curHeading;
-    _needle.transform = CGAffineTransformMakeRotation(offset);
-
-    // TODO: This code is redundant...there is probably a better way to do this.
-    CLLocationCoordinate2D anthillLoc = [self curSelectedLocation];
-
+- (void)calcAngleToTarget {
     // (lat1,lon1) is the starting point, i.e. the user.
     // (lat2,lon2) is the ending point, i.e. the anthill.
     // Each of the values is converted to radians.
     double lat1 = degToRad(_userLoc.latitude);
     double lon1 = degToRad(_userLoc.longitude);
-    double lat2 = degToRad(anthillLoc.latitude);
-    double lon2 = degToRad(anthillLoc.longitude);
-
-    // Get the distance using the haversine formula.
-    double d =
-        2*RADIUS*sqrt(
-            pow(sin((lat2-lat1)/2), 2) +
-            cos(lat1)*cos(lat2)*pow(sin((lon2-lon1)/2),2)
-        );
-
-    // Update the labels.
-    self.distanceLabel.text = [NSString stringWithFormat:@"%f", d];
-    self.headingLabel.text = [NSString stringWithFormat:@"%f", radToDeg(offset)];
-}
-
-- (void)calcAngleOffset {
-    CLLocationCoordinate2D anthillLoc = [self curSelectedLocation];
-
-    // (lat1,lon1) is the starting point, i.e. the user.
-    // (lat2,lon2) is the ending point, i.e. the anthill.
-    // Each of the values is converted to radians.
-    double lat1 = degToRad(_userLoc.latitude);
-    double lon1 = degToRad(_userLoc.longitude);
-    double lat2 = degToRad(anthillLoc.latitude);
-    double lon2 = degToRad(anthillLoc.longitude);
-
-    angleOffset =
+    double lat2 = degToRad(_targetLoc.latitude);
+    double lon2 = degToRad(_targetLoc.longitude);
+    
+    _angle =
         atan2(
             sin(lon2-lon1)*cos(lat2),
             cos(lat1)*sin(lat2) - sin(lat1)*cos(lat2)*cos(lon2-lon1)
         );
+}
+
+
+- (void)calcDistanceToTarget {
+    // (lat1,lon1) is the starting point, i.e. the user.
+    // (lat2,lon2) is the ending point, i.e. the anthill.
+    // Each of the values is converted to radians.
+    double lat1 = degToRad(_userLoc.latitude);
+    double lon1 = degToRad(_userLoc.longitude);
+    double lat2 = degToRad(_targetLoc.latitude);
+    double lon2 = degToRad(_targetLoc.longitude);
+    
+    // Get the distance using the haversine formula.
+    _distance =
+        2*RADIUS*asin(
+            sqrt(
+                pow(sin((lat2-lat1)/2), 2) +
+                cos(lat1)*cos(lat2)*pow(sin((lon2-lon1)/2),2)
+            )
+        );
+}
+
+- (void)updateCompass {
+    // Rotate the needle. The provided offset is in radians.
+    _offset = _angle - _curHeading;
+    _needle.transform = CGAffineTransformMakeRotation(_offset);
+
+    [self calcDistanceToTarget];
+
+    // Update the labels.
+    self.distanceLabel.text = [NSString stringWithFormat:@"%.01f km", _distance];
+
+    // Ensure that the displayed heading is in the range [0, 360).
+    double heading = radToDeg(_offset);
+    if (heading < 0) {
+        heading += 360;
+    }
+    self.headingLabel.text = [NSString stringWithFormat:@"%.f %@", heading, @"\u00B0"];
 }
 
 //TODO: Implement me
@@ -112,8 +121,8 @@
 -(void)locationManager:(CLLocationManager*)manager didUpdateLocations:(nonnull NSArray<CLLocation *> *)locations {
     // Assume that the last location is the user's current location.
     _lastLoc = _userLoc;
-    _userLoc = [locations[[locations count] - 1] coordinate];
-    [self calcAngleOffset];
+    _userLoc = [locations lastObject].coordinate;
+    [self calcAngleToTarget];
     [self updateCompass];
 }
 
@@ -143,7 +152,8 @@
 //TODO: Implement me
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component __TVOS_PROHIBITED
 {
-    [self calcAngleOffset];
+    _targetLoc = [self curSelectedLocation];
+    [self calcAngleToTarget];
     [self updateCompass];
 }
 
