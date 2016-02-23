@@ -36,10 +36,12 @@ def calcDistance(path):
         
         # Calculate the distance between the two points using the
         # haversine formula.
-        d = 2*r*math.sqrt(
-                (math.sin((lat2-lat1)/2)**2) +
-                math.cos(lat1)*math.cos(lat2)*(math.sin((lon2-lon1)/2)**2)
-            )
+        d = 2*r*math.asin(
+	        math.sqrt(
+                    (math.sin((lat2-lat1)/2)**2) +
+                    math.cos(lat1)*math.cos(lat2)*(math.sin((lon2-lon1)/2)**2)
+                )
+	    )
 
         distance += d
 
