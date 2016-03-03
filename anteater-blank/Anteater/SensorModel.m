@@ -21,6 +21,8 @@ static id _instance;
     CBCentralManager *cm;
     CBPeripheral *p;
     BOOL shouldScan;
+    char type;
+    NSMutableString *payload;
 }
 
 
@@ -29,8 +31,12 @@ static id _instance;
     self = [super init];
     if (self) {
         cm = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+        p = nil;
         shouldScan = FALSE;
+        type = 'X';         // Use X as a sentinel for no type.
+        payload = [NSMutableString init];
     }
+
     return self;
 }
 
@@ -51,12 +57,17 @@ static id _instance;
 
 
 -(BOOL)isConnected {
-    return shouldScan;
+    return p != nil;
 }
 
 
 -(NSString *)currentSensorId {
-    return p.name;
+    NSString *name = @"No anthill connected";
+    if (p) {
+        name = p.name;
+    }
+
+    return name;
 }
 
 
@@ -74,9 +85,11 @@ static id _instance;
     NSLog(@"centralManagerDidUpdateState");
     if (cm.state == CBCentralManagerStatePoweredOn && shouldScan) {
         [cm
-            scanForPeripheralsWithServices:
-                [NSArray arrayWithObject:
-                    [CBUUID UUIDWithString:@RBL_CHAR_RX_UUID]]
+            scanForPeripheralsWithServices: [
+                NSArray arrayWithObject: [
+                    CBUUID UUIDWithString:@RBL_CHAR_RX_UUID
+                ]
+            ]
             options:nil
         ];
     }
@@ -92,11 +105,11 @@ static id _instance;
     p.delegate = self;
     [cm
         connectPeripheral:p
-        options:
-            [NSDictionary
+        options: [
+            NSDictionary
                 dictionaryWithObject:[NSNumber numberWithBool:YES]
                 forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey
-            ]
+        ]
     ];
 }
 
@@ -104,8 +117,17 @@ static id _instance;
 - (void)centralManager:(CBCentralManager *)central
         didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"didConnectPeripheral");
-    [p discoverServices:nil];
     [_delegate bleDidConnect];
+    [p discoverServices:nil];
+}
+
+
+- (void)centralManager:(CBCentralManager *)central
+        didDisconnectPeripheral:(CBPeripheral *)peripheral
+        error:(NSError *)error {
+    NSLog(@"didDisconnectPeripheral");
+    p = nil;
+    [_delegate bleDidDisconnect];
 }
 
 
@@ -114,8 +136,7 @@ static id _instance;
 - (void)peripheral:(CBPeripheral *)peripheral
         didDiscoverServices:(NSError *)error {
     NSLog(@"didDiscoverServices");
-    for (CBService *s in peripheral.services)
-    {
+    for (CBService *s in peripheral.services) {
         [peripheral discoverCharacteristics:nil forService:s];
     }
 }
@@ -124,6 +145,7 @@ static id _instance;
 - (void)peripheral:(CBPeripheral *)peripheral
         didDiscoverCharacteristicsForService:(CBService *)service
         error:(NSError *)error {
+    NSLog(@"didDiscoverCharacteristicsForService");
     if ([[[service UUID] UUIDString] isEqualToString:@RBL_SERVICE_UUID]) {
         for (CBCharacteristic *c in service.characteristics) {
             if ([[[c UUID] UUIDString] isEqualToString:@RBL_CHAR_TX_UUID]) {
@@ -134,11 +156,65 @@ static id _instance;
 }
 
 
-// TODO: implement
 - (void)peripheral:(CBPeripheral *)peripheral
         didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
         error:(NSError *)error {
-    
+    NSLog(@"didUpdateValueForCharacteristic");
+
+    unsigned char data[20];
+    unsigned long data_len = MIN(20,characteristic.value.length);
+    [characteristic.value getBytes:data length:data_len];
+
+    for (int i = 0; i < data_len; i++) {
+        if (type == 'X') {
+            if (data[i] == 'H' || data[i] == 'T' || data[i] == 'E') {
+                type = data[i];
+            } else {
+                NSLog(@"Improperly constructed message.");
+                break;
+            }
+        } else if (type == 'H' || type == 'T') {
+            int start = i;
+            while (i < data_len && data[i] != 'D') {
+                i++;
+            }
+            
+            // Write to the payload, regardless of whether the message
+            // is completed.
+            [payload
+                appendString: [
+                    [[NSString alloc]
+                        initWithCString:(char *)data
+                        encoding:NSUTF8StringEncoding
+                    ]
+                    substringWithRange:NSMakeRange(start, i - start)
+                ]
+            ];
+
+            // If the message is completed, add the new records to the sensor
+            // readings array and reset the buffer.
+            if (i < data_len) {
+                SensorReadingType t =
+                    type == 'H' ? kHumidityReading : kTemperatureReading;
+                BLESensorReading *reading = [
+                    [BLESensorReading alloc]
+                        initWithReadingValue:[payload floatValue]
+                        andType:t
+                        atTime:[NSDate date]
+                        andSensorId:[self currentSensorId]
+                ];
+                
+                [_sensorReadings addObject:reading];
+                [self.delegate bleGotSensorReading:reading];
+                
+                type = 'X';
+                [payload setString:@""];
+            }
+        } else {
+            NSLog(@"Error message received: %c", data[i]);
+            type = 'X';
+        }
+    }
 }
 
 

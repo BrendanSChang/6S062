@@ -23,7 +23,7 @@
 +(SensorModel *)instance;
 
 @property(atomic,strong) id<SensorModelDelegate> delegate;
-@property(atomic,readonly) NSArray *sensorReadings;
+@property(atomic,readonly) NSMutableArray *sensorReadings;
 -(void)startScanning;
 -(void)stopScanning;
 -(BOOL)isConnected;
