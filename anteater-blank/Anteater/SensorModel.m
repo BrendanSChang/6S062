@@ -34,7 +34,7 @@ static id _instance;
         p = nil;
         shouldScan = FALSE;
         type = 'X';         // Use X as a sentinel for no type.
-        payload = [NSMutableString init];
+        payload = [[NSMutableString alloc] init];
     }
 
     return self;
@@ -87,7 +87,7 @@ static id _instance;
         [cm
             scanForPeripheralsWithServices: [
                 NSArray arrayWithObject: [
-                    CBUUID UUIDWithString:@RBL_CHAR_RX_UUID
+                    CBUUID UUIDWithString:@RBL_SERVICE_UUID
                 ]
             ]
             options:nil
@@ -181,6 +181,10 @@ static id _instance;
             
             // Write to the payload, regardless of whether the message
             // is completed.
+            NSString *parsed = [[NSString alloc] initWithCString:(char *)data encoding:NSUTF8StringEncoding];
+            NSLog(@"parsed: %@", parsed);
+            NSString *sub = [parsed substringWithRange:NSMakeRange(start, i - start)];
+            NSLog(@"sub: %@", sub);
             [payload
                 appendString: [
                     [[NSString alloc]
