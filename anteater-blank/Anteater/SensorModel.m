@@ -30,6 +30,7 @@ static id _instance;
     NSLog(@"init");
     self = [super init];
     if (self) {
+        _sensorReadings = [[NSMutableArray alloc] init];
         cm = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
         p = nil;
         shouldScan = FALSE;
@@ -167,33 +168,46 @@ static id _instance;
 
     for (int i = 0; i < data_len; i++) {
         if (type == 'X') {
-            if (data[i] == 'H' || data[i] == 'T' || data[i] == 'E') {
+            // We expect the first character to be a message type, but the
+            // central (iPhone) sometimes receives an intermediate message
+            // after connecting to the peripheral (anthill). Specifically,
+            // the central may receive the second or third packet in a message,
+            // missing the type identifier in the first.
+            NSLog(@"Intermediate message received.");
+
+            // Skip over the data in the beginning of the message to find the
+            // start of the next message.
+            while (i < data_len &&
+                   data[i] != 'H' &&
+                   data[i] != 'T' &&
+                   data[i] != 'E') {
+                i++;
+            }
+
+            if (i < data_len) {
                 type = data[i];
-            } else {
-                NSLog(@"Improperly constructed message.");
-                break;
             }
         } else if (type == 'H' || type == 'T') {
             int start = i;
             while (i < data_len && data[i] != 'D') {
                 i++;
             }
-            
-            // Write to the payload, regardless of whether the message
-            // is completed.
-            NSString *parsed = [[NSString alloc] initWithCString:(char *)data encoding:NSUTF8StringEncoding];
-            NSLog(@"parsed: %@", parsed);
-            NSString *sub = [parsed substringWithRange:NSMakeRange(start, i - start)];
-            NSLog(@"sub: %@", sub);
-            [payload
-                appendString: [
-                    [[NSString alloc]
-                        initWithCString:(char *)data
-                        encoding:NSUTF8StringEncoding
+
+            // Write to the payload regardless of whether the message is
+            // completed, unless 'D' is the first character in the packet.
+            // In that case, there is no data to write and the current content
+            // of the buffer is the complete message.
+            if (i > 0) {
+                [payload
+                    appendString: [
+                        [[NSString alloc]
+                            initWithCString:(char *)data
+                            encoding:NSUTF8StringEncoding
+                        ]
+                        substringWithRange:NSMakeRange(start, i - start)
                     ]
-                    substringWithRange:NSMakeRange(start, i - start)
-                ]
-            ];
+                ];
+            }
 
             // If the message is completed, add the new records to the sensor
             // readings array and reset the buffer.
@@ -207,10 +221,14 @@ static id _instance;
                         atTime:[NSDate date]
                         andSensorId:[self currentSensorId]
                 ];
-                
+
                 [_sensorReadings addObject:reading];
-                [self.delegate bleGotSensorReading:reading];
-                
+                [_delegate bleGotSensorReading:reading];
+                [AnteaterREST
+                    postListOfSensorReadings:@[reading]
+                    andCallCallback:NULL
+                ];
+
                 type = 'X';
                 [payload setString:@""];
             }
