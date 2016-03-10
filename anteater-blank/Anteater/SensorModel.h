@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "BLESensorReading.h"
 
-@protocol SensorModelDelegate <NSObject>
+@protocol SensorModelDelegate
 
 -(void) bleDidConnect;
 -(void) bleDidDisconnect;
@@ -18,7 +18,7 @@
 
 @end
 
-@interface SensorModel : NSObject 
+@interface SensorModel : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 +(SensorModel *)instance;
 

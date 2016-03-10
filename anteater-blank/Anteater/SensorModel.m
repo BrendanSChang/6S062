@@ -45,6 +45,7 @@ static id _instance;
 -(void)startScanning {
     NSLog(@"startScanning");
     shouldScan = TRUE;
+    [self scanForPeripherals];
 }
 
 
@@ -59,6 +60,16 @@ static id _instance;
 
 -(BOOL)isConnected {
     return p != nil;
+}
+
+
+-(void)scanForPeripherals {
+    if (cm.state == CBCentralManagerStatePoweredOn && shouldScan) {
+        [cm
+            scanForPeripheralsWithServices: @[[CBUUID UUIDWithString:@RBL_SERVICE_UUID]]
+            options:nil
+        ];
+    }
 }
 
 
@@ -84,16 +95,7 @@ static id _instance;
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
     NSLog(@"centralManagerDidUpdateState");
-    if (cm.state == CBCentralManagerStatePoweredOn && shouldScan) {
-        [cm
-            scanForPeripheralsWithServices: [
-                NSArray arrayWithObject: [
-                    CBUUID UUIDWithString:@RBL_SERVICE_UUID
-                ]
-            ]
-            options:nil
-        ];
-    }
+    [self scanForPeripherals];
 }
 
 
@@ -104,14 +106,7 @@ static id _instance;
     NSLog(@"didDiscoverPeripheral");
     p = peripheral;
     p.delegate = self;
-    [cm
-        connectPeripheral:p
-        options: [
-            NSDictionary
-                dictionaryWithObject:[NSNumber numberWithBool:YES]
-                forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey
-        ]
-    ];
+    [cm connectPeripheral:p options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey:@YES}];
 }
 
 
@@ -129,6 +124,9 @@ static id _instance;
     NSLog(@"didDisconnectPeripheral");
     p = nil;
     [_delegate bleDidDisconnect];
+
+    // Find a better way to do this.
+    [self startScanning];
 }
 
 
@@ -162,7 +160,7 @@ static id _instance;
         error:(NSError *)error {
     NSLog(@"didUpdateValueForCharacteristic");
 
-    unsigned char data[20];
+    char data[20];
     unsigned long data_len = MIN(20,characteristic.value.length);
     [characteristic.value getBytes:data length:data_len];
 
@@ -198,10 +196,11 @@ static id _instance;
             // In that case, there is no data to write and the current content
             // of the buffer is the complete message.
             if (i > 0) {
+                NSData* d = [NSData dataWithBytes:data length:data_len];
                 [payload
                     appendString: [
                         [[NSString alloc]
-                            initWithCString:(char *)data
+                            initWithData:d
                             encoding:NSUTF8StringEncoding
                         ]
                         substringWithRange:NSMakeRange(start, i - start)

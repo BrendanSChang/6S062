@@ -176,7 +176,7 @@
 		DBDF15BB1C46955900B45C35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBDF15BD1C46955900B45C35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBDF15C81C4695CA00B45C35 /* SensorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorModel.h; sourceTree = "<group>"; };
-		DBDF15C91C4695CA00B45C35 /* SensorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorModel.m; sourceTree = "<group>"; };
+		DBDF15C91C4695CA00B45C35 /* SensorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorModel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DBDF15CB1C469AA400B45C35 /* BLESensorReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLESensorReading.h; sourceTree = "<group>"; };
 		DBDF15CC1C469AA400B45C35 /* BLESensorReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLESensorReading.m; sourceTree = "<group>"; };
 		DBEBBD1B1C6519710079BD25 /* CompassViewController-stripped.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CompassViewController-stripped.m"; sourceTree = "<group>"; };
