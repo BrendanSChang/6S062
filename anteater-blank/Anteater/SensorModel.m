@@ -221,7 +221,7 @@ static id _instance;
                         andSensorId:[self currentSensorId]
                 ];
 
-                [_sensorReadings addObject:reading];
+                _sensorReadings = [_sensorReadings arrayByAddingObject:reading];
                 [_delegate bleGotSensorReading:reading];
                 [AnteaterREST
                     postListOfSensorReadings:@[reading]
