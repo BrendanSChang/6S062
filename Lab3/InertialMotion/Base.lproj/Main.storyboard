@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xwm-VT-huC">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--2D-->
+        <scene sceneID="LjH-fn-WoP">
+            <objects>
+                <viewController id="q3I-b7-VfM" customClass="Gesture2DViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XBC-Ik-TXd"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bcl-Xe-7x3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="m7V-d6-hbp" customClass="ScribbleView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZs-fl-Ri8">
+                                <rect key="frame" x="300" y="551" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write anywhere with your finger..." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFr-Br-BMJ">
+                                <rect key="frame" x="20" y="32" width="255.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="eZs-fl-Ri8" firstAttribute="width" relation="lessThanOrEqual" secondItem="m7V-d6-hbp" secondAttribute="width" id="3An-XX-2JC"/>
+                            <constraint firstItem="eZs-fl-Ri8" firstAttribute="centerX" secondItem="m7V-d6-hbp" secondAttribute="centerX" id="Wb9-9f-f2c"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="sFr-Br-BMJ" secondAttribute="trailing" id="XhP-ts-RY1"/>
+                            <constraint firstItem="Bcl-Xe-7x3" firstAttribute="top" secondItem="eZs-fl-Ri8" secondAttribute="bottom" id="gmY-dB-N6x"/>
+                            <constraint firstItem="sFr-Br-BMJ" firstAttribute="leading" secondItem="m7V-d6-hbp" secondAttribute="leadingMargin" id="jd9-ZZ-2xY"/>
+                            <constraint firstItem="sFr-Br-BMJ" firstAttribute="top" secondItem="XBC-Ik-TXd" secondAttribute="bottom" constant="12" id="wsH-Wd-xiT"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Csb-d0-kyn" appends="YES" id="Trm-dL-UHl"/>
+                        </connections>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="2D" image="2d" selectedImage="2d" id="iSm-jV-2uZ"/>
+                    <connections>
+                        <outlet property="label" destination="eZs-fl-Ri8" id="dab-Um-Mvq"/>
+                        <outlet property="longPressGestureRecognizer" destination="Csb-d0-kyn" id="BLu-L3-E0f"/>
+                        <outlet property="scribbleView" destination="m7V-d6-hbp" id="6GT-nN-3LW"/>
+                        <segue destination="5tR-lC-j7V" kind="presentation" identifier="logNote" modalPresentationStyle="formSheet" id="BSm-T8-dvo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hf3-Ky-ibd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer delaysTouchesEnded="NO" allowableMovement="10" minimumPressDuration="1" id="Csb-d0-kyn">
+                    <connections>
+                        <action selector="longPress:" destination="q3I-b7-VfM" id="nVI-5b-8LU"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-154" y="-358"/>
+        </scene>
+        <!--Log Note-->
+        <scene sceneID="p7o-Yc-D3c">
+            <objects>
+                <viewController title="Log Note" id="5tR-lC-j7V" customClass="LogNoteViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QLi-6Y-d0y"/>
+                        <viewControllerLayoutGuide type="bottom" id="cZ8-Jj-4nH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KOr-81-oep">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZU-Bk-GXZ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Training Log Note" id="aXG-3m-XwB">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="VD2-2w-g2W"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="PFE-Fr-HH9">
+                                            <connections>
+                                                <action selector="done:" destination="5tR-lC-j7V" id="8Yb-MG-YM7"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gUz-39-6hF">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="UZU-Bk-GXZ" secondAttribute="trailing" id="52G-xa-0HQ"/>
+                            <constraint firstItem="gUz-39-6hF" firstAttribute="leading" secondItem="KOr-81-oep" secondAttribute="leading" id="5hr-Ln-zr8"/>
+                            <constraint firstItem="cZ8-Jj-4nH" firstAttribute="top" secondItem="gUz-39-6hF" secondAttribute="bottom" id="dRc-qd-1Ax"/>
+                            <constraint firstItem="UZU-Bk-GXZ" firstAttribute="top" secondItem="QLi-6Y-d0y" secondAttribute="bottom" id="evB-xF-YTI"/>
+                            <constraint firstAttribute="trailing" secondItem="gUz-39-6hF" secondAttribute="trailing" id="l71-yd-15e"/>
+                            <constraint firstItem="UZU-Bk-GXZ" firstAttribute="leading" secondItem="KOr-81-oep" secondAttribute="leading" id="md6-Hf-5al"/>
+                            <constraint firstItem="gUz-39-6hF" firstAttribute="top" secondItem="UZU-Bk-GXZ" secondAttribute="bottom" id="vjx-hL-FYf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="gUz-39-6hF" id="d3z-uP-wSI"/>
+                        <segue destination="4dy-bH-aNy" kind="unwind" identifier="exit" unwindAction="prepareForUnwind:" id="hzU-Aj-KDj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="il2-9Z-gOV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="4dy-bH-aNy" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="557" y="-358"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="GrU-GN-ZGw">
+            <objects>
+                <tabBarController id="xwm-VT-huC" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="JhD-kw-Gyp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="q3I-b7-VfM" kind="relationship" relationship="viewControllers" id="sMW-zl-K2M"/>
+                        <segue destination="BV1-FR-VrT" kind="relationship" relationship="viewControllers" id="PbT-z0-j7T"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t8c-iG-1AN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-974" y="-27"/>
+        </scene>
+        <!--3D-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="Gesture3DViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
+                        <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
+                    </layoutGuides>
+                    <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableMultisample="4X" enableSetNeedsDisplay="NO" id="BsQ-Ap-gV5">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dt-5G-M9l">
+                                <rect key="frame" x="300" y="551" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press and hold anywhere while moving the phone..." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icq-to-sUo">
+                                <rect key="frame" x="20" y="52" width="391.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="icq-to-sUo" secondAttribute="trailing" constant="20" id="7hg-Qq-FmZ"/>
+                            <constraint firstItem="icq-to-sUo" firstAttribute="leading" secondItem="BsQ-Ap-gV5" secondAttribute="leading" constant="20" id="Rvo-xz-uI9"/>
+                            <constraint firstItem="7dt-5G-M9l" firstAttribute="centerX" secondItem="BsQ-Ap-gV5" secondAttribute="centerX" id="fPu-Sf-dkt"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="7dt-5G-M9l" secondAttribute="bottom" id="gEp-U6-JMX"/>
+                            <constraint firstItem="7dt-5G-M9l" firstAttribute="width" relation="lessThanOrEqual" secondItem="BsQ-Ap-gV5" secondAttribute="width" id="nvJ-1a-vc8"/>
+                            <constraint firstItem="icq-to-sUo" firstAttribute="top" secondItem="8aa-yV-Osq" secondAttribute="bottom" constant="32" id="rbe-JD-O0v"/>
+                        </constraints>
+                    </glkView>
+                    <tabBarItem key="tabBarItem" title="3D" image="3d" selectedImage="3d" id="54Q-QF-m9q"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="label" destination="7dt-5G-M9l" id="X9j-og-WV5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-154" y="339"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="2d" width="30" height="30"/>
+        <image name="3d" width="30" height="30"/>
+    </resources>
+</document>

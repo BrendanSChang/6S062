@@ -1,13 +1,12 @@
 //
 //  AppDelegate.m
-//  Lab0
+//  InertialMotion
 //
-//  Created by Brendan S Chang on 2/8/16.
-//  Copyright © 2016 Brendan S Chang. All rights reserved.
+//  Created by Peter Iannucci on 3/1/16.
+//  Copyright © 2016 MIT. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "Weather.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.gestureProcessor = [[GestureProcessor alloc] init];
     return YES;
 }
 
@@ -41,6 +41,23 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)appendTrainingLog:(NSString *)entry
+{
+    if (!entry)
+        return;
+    
+    NSLog(@"%@", entry);
+    
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *fileName = [documentsDirectory stringByAppendingPathComponent:@"trainingData.txt"];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:fileName])
+        [[NSFileManager defaultManager] createFileAtPath:fileName contents:nil attributes:nil];
+    NSFileHandle *file = [NSFileHandle fileHandleForUpdatingAtPath:fileName];
+    [file seekToEndOfFile];
+    [file writeData:[entry dataUsingEncoding:NSUTF8StringEncoding]];
+    [file closeFile];
 }
 
 @end

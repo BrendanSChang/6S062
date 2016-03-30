@@ -1,9 +1,9 @@
 //
 //  main.m
-//  Lab0
+//  InertialMotion
 //
-//  Created by Brendan S Chang on 2/8/16.
-//  Copyright © 2016 Brendan S Chang. All rights reserved.
+//  Created by Peter Iannucci on 3/1/16.
+//  Copyright © 2016 MIT. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

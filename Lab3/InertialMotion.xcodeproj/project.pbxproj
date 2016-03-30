@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE25E2391CA1D34E009EED18 /* LogNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE25E2381CA1D34E009EED18 /* LogNoteViewController.m */; };
+		AE401D0E1CA9F596006D39B4 /* Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = AE401D0D1CA9F596006D39B4 /* Geometry.m */; };
+		AEB26FD31C860C5C00F9CE54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB26FD21C860C5C00F9CE54 /* main.m */; };
+		AEB26FD61C860C5C00F9CE54 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB26FD51C860C5C00F9CE54 /* AppDelegate.m */; };
+		AEB26FD81C860C5C00F9CE54 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = AEB26FD71C860C5C00F9CE54 /* Shader.fsh */; };
+		AEB26FDA1C860C5C00F9CE54 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = AEB26FD91C860C5C00F9CE54 /* Shader.vsh */; };
+		AEB26FDD1C860C5C00F9CE54 /* RibbonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB26FDC1C860C5C00F9CE54 /* RibbonViewController.m */; };
+		AEB26FE01C860C5C00F9CE54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEB26FDE1C860C5C00F9CE54 /* Main.storyboard */; };
+		AEB26FE21C860C5C00F9CE54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEB26FE11C860C5C00F9CE54 /* Assets.xcassets */; };
+		AEB26FE51C860C5C00F9CE54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEB26FE31C860C5C00F9CE54 /* LaunchScreen.storyboard */; };
+		AEC095B51C974090004339EA /* ColorInterpolator.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC095B41C974090004339EA /* ColorInterpolator.m */; };
+		AEC095B91C9741C8004339EA /* Gesture3DViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC095B81C9741C8004339EA /* Gesture3DViewController.m */; };
+		AEC095BF1C975348004339EA /* Gesture2DViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC095BE1C975348004339EA /* Gesture2DViewController.m */; };
+		AEC095C31C978DBD004339EA /* Ribbon.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC095C21C978DBD004339EA /* Ribbon.m */; };
+		AEC095C91C979466004339EA /* GLSLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC095C81C979466004339EA /* GLSLProgram.m */; };
+		AEC095CC1C9893FD004339EA /* ScribbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC095CB1C9893FD004339EA /* ScribbleView.m */; };
+		AEC095CE1C9898DC004339EA /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = AEC095CD1C9898DC004339EA /* COPYING */; };
+		AEC095D11C98AEA7004339EA /* GestureProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC095D01C98AEA7004339EA /* GestureProcessor.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AE25E2371CA1D34E009EED18 /* LogNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogNoteViewController.h; sourceTree = "<group>"; };
+		AE25E2381CA1D34E009EED18 /* LogNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogNoteViewController.m; sourceTree = "<group>"; };
+		AE401D0D1CA9F596006D39B4 /* Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geometry.m; sourceTree = "<group>"; };
+		AE401D0F1CA9F5A3006D39B4 /* Geometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
+		AEB26FCE1C860C5C00F9CE54 /* InertialMotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InertialMotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEB26FD21C860C5C00F9CE54 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AEB26FD41C860C5C00F9CE54 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AEB26FD51C860C5C00F9CE54 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AEB26FD71C860C5C00F9CE54 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		AEB26FD91C860C5C00F9CE54 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		AEB26FDB1C860C5C00F9CE54 /* RibbonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RibbonViewController.h; sourceTree = "<group>"; };
+		AEB26FDC1C860C5C00F9CE54 /* RibbonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RibbonViewController.m; sourceTree = "<group>"; };
+		AEB26FDF1C860C5C00F9CE54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AEB26FE11C860C5C00F9CE54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AEB26FE41C860C5C00F9CE54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AEB26FE61C860C5C00F9CE54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEC095B41C974090004339EA /* ColorInterpolator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorInterpolator.m; sourceTree = "<group>"; };
+		AEC095B61C97409B004339EA /* ColorInterpolator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorInterpolator.h; sourceTree = "<group>"; };
+		AEC095B71C9741C8004339EA /* Gesture3DViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gesture3DViewController.h; sourceTree = "<group>"; };
+		AEC095B81C9741C8004339EA /* Gesture3DViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gesture3DViewController.m; sourceTree = "<group>"; };
+		AEC095BD1C975348004339EA /* Gesture2DViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gesture2DViewController.h; sourceTree = "<group>"; };
+		AEC095BE1C975348004339EA /* Gesture2DViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gesture2DViewController.m; sourceTree = "<group>"; };
+		AEC095C11C978DBD004339EA /* Ribbon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ribbon.h; sourceTree = "<group>"; };
+		AEC095C21C978DBD004339EA /* Ribbon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ribbon.m; sourceTree = "<group>"; };
+		AEC095C71C979466004339EA /* GLSLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSLProgram.h; sourceTree = "<group>"; };
+		AEC095C81C979466004339EA /* GLSLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSLProgram.m; sourceTree = "<group>"; };
+		AEC095CA1C9893FD004339EA /* ScribbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScribbleView.h; sourceTree = "<group>"; };
+		AEC095CB1C9893FD004339EA /* ScribbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScribbleView.m; sourceTree = "<group>"; };
+		AEC095CD1C9898DC004339EA /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		AEC095CF1C98AEA7004339EA /* GestureProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureProcessor.h; sourceTree = "<group>"; };
+		AEC095D01C98AEA7004339EA /* GestureProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureProcessor.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AEB26FCB1C860C5C00F9CE54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AEB26FC51C860C5C00F9CE54 = {
+			isa = PBXGroup;
+			children = (
+				AEB26FD01C860C5C00F9CE54 /* InertialMotion */,
+				AEB26FCF1C860C5C00F9CE54 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AEB26FCF1C860C5C00F9CE54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AEB26FCE1C860C5C00F9CE54 /* InertialMotion.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AEB26FD01C860C5C00F9CE54 /* InertialMotion */ = {
+			isa = PBXGroup;
+			children = (
+				AEC095D21C9A68FC004339EA /* Gesture Recognition */,
+				AEC095D31C9A691B004339EA /* User Interface */,
+				AEB26FD11C860C5C00F9CE54 /* Supporting Files */,
+			);
+			path = InertialMotion;
+			sourceTree = "<group>";
+		};
+		AEB26FD11C860C5C00F9CE54 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AEB26FE11C860C5C00F9CE54 /* Assets.xcassets */,
+				AEC095CD1C9898DC004339EA /* COPYING */,
+				AEB26FE61C860C5C00F9CE54 /* Info.plist */,
+				AEB26FD41C860C5C00F9CE54 /* AppDelegate.h */,
+				AEB26FD51C860C5C00F9CE54 /* AppDelegate.m */,
+				AEB26FD21C860C5C00F9CE54 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AEC095C01C978D75004339EA /* Ribbon */ = {
+			isa = PBXGroup;
+			children = (
+				AEC095B61C97409B004339EA /* ColorInterpolator.h */,
+				AEC095B41C974090004339EA /* ColorInterpolator.m */,
+				AEC095C71C979466004339EA /* GLSLProgram.h */,
+				AEC095C81C979466004339EA /* GLSLProgram.m */,
+				AEC095C11C978DBD004339EA /* Ribbon.h */,
+				AEC095C21C978DBD004339EA /* Ribbon.m */,
+				AEB26FD71C860C5C00F9CE54 /* Shader.fsh */,
+				AEB26FD91C860C5C00F9CE54 /* Shader.vsh */,
+			);
+			name = Ribbon;
+			sourceTree = "<group>";
+		};
+		AEC095D21C9A68FC004339EA /* Gesture Recognition */ = {
+			isa = PBXGroup;
+			children = (
+				AE401D0F1CA9F5A3006D39B4 /* Geometry.h */,
+				AE401D0D1CA9F596006D39B4 /* Geometry.m */,
+				AEC095CF1C98AEA7004339EA /* GestureProcessor.h */,
+				AEC095D01C98AEA7004339EA /* GestureProcessor.m */,
+			);
+			name = "Gesture Recognition";
+			sourceTree = "<group>";
+		};
+		AEC095D31C9A691B004339EA /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				AEC095BD1C975348004339EA /* Gesture2DViewController.h */,
+				AEC095BE1C975348004339EA /* Gesture2DViewController.m */,
+				AEC095B71C9741C8004339EA /* Gesture3DViewController.h */,
+				AEC095B81C9741C8004339EA /* Gesture3DViewController.m */,
+				AEC095C01C978D75004339EA /* Ribbon */,
+				AEB26FDB1C860C5C00F9CE54 /* RibbonViewController.h */,
+				AEB26FDC1C860C5C00F9CE54 /* RibbonViewController.m */,
+				AEC095CA1C9893FD004339EA /* ScribbleView.h */,
+				AEC095CB1C9893FD004339EA /* ScribbleView.m */,
+				AEB26FE31C860C5C00F9CE54 /* LaunchScreen.storyboard */,
+				AEB26FDE1C860C5C00F9CE54 /* Main.storyboard */,
+				AE25E2371CA1D34E009EED18 /* LogNoteViewController.h */,
+				AE25E2381CA1D34E009EED18 /* LogNoteViewController.m */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AEB26FCD1C860C5C00F9CE54 /* InertialMotion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AEB26FE91C860C5C00F9CE54 /* Build configuration list for PBXNativeTarget "InertialMotion" */;
+			buildPhases = (
+				AEB26FCA1C860C5C00F9CE54 /* Sources */,
+				AEB26FCB1C860C5C00F9CE54 /* Frameworks */,
+				AEB26FCC1C860C5C00F9CE54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InertialMotion;
+			productName = InertialMotion;
+			productReference = AEB26FCE1C860C5C00F9CE54 /* InertialMotion.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AEB26FC61C860C5C00F9CE54 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = MIT;
+				TargetAttributes = {
+					AEB26FCD1C860C5C00F9CE54 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 69HBCM3B85;
+					};
+				};
+			};
+			buildConfigurationList = AEB26FC91C860C5C00F9CE54 /* Build configuration list for PBXProject "InertialMotion" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AEB26FC51C860C5C00F9CE54;
+			productRefGroup = AEB26FCF1C860C5C00F9CE54 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AEB26FCD1C860C5C00F9CE54 /* InertialMotion */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AEB26FCC1C860C5C00F9CE54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEC095CE1C9898DC004339EA /* COPYING in Resources */,
+				AEB26FE01C860C5C00F9CE54 /* Main.storyboard in Resources */,
+				AEB26FDA1C860C5C00F9CE54 /* Shader.vsh in Resources */,
+				AEB26FE21C860C5C00F9CE54 /* Assets.xcassets in Resources */,
+				AEB26FE51C860C5C00F9CE54 /* LaunchScreen.storyboard in Resources */,
+				AEB26FD81C860C5C00F9CE54 /* Shader.fsh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AEB26FCA1C860C5C00F9CE54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEC095B91C9741C8004339EA /* Gesture3DViewController.m in Sources */,
+				AEC095B51C974090004339EA /* ColorInterpolator.m in Sources */,
+				AE25E2391CA1D34E009EED18 /* LogNoteViewController.m in Sources */,
+				AEC095C91C979466004339EA /* GLSLProgram.m in Sources */,
+				AEC095CC1C9893FD004339EA /* ScribbleView.m in Sources */,
+				AEC095BF1C975348004339EA /* Gesture2DViewController.m in Sources */,
+				AEB26FD61C860C5C00F9CE54 /* AppDelegate.m in Sources */,
+				AEC095D11C98AEA7004339EA /* GestureProcessor.m in Sources */,
+				AEB26FDD1C860C5C00F9CE54 /* RibbonViewController.m in Sources */,
+				AE401D0E1CA9F596006D39B4 /* Geometry.m in Sources */,
+				AEB26FD31C860C5C00F9CE54 /* main.m in Sources */,
+				AEC095C31C978DBD004339EA /* Ribbon.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AEB26FDE1C860C5C00F9CE54 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AEB26FDF1C860C5C00F9CE54 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AEB26FE31C860C5C00F9CE54 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AEB26FE41C860C5C00F9CE54 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AEB26FE71C860C5C00F9CE54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AEB26FE81C860C5C00F9CE54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AEB26FEA1C860C5C00F9CE54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = InertialMotion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.InertialMotion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		AEB26FEB1C860C5C00F9CE54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = InertialMotion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.InertialMotion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AEB26FC91C860C5C00F9CE54 /* Build configuration list for PBXProject "InertialMotion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEB26FE71C860C5C00F9CE54 /* Debug */,
+				AEB26FE81C860C5C00F9CE54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEB26FE91C860C5C00F9CE54 /* Build configuration list for PBXNativeTarget "InertialMotion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEB26FEA1C860C5C00F9CE54 /* Debug */,
+				AEB26FEB1C860C5C00F9CE54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AEB26FC61C860C5C00F9CE54 /* Project object */;
+}
