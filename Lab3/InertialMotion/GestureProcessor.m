@@ -58,14 +58,55 @@ static NSString *const labels[N_LABELS+1] = {@"A", @"B", @"C", @"D", @"E", @"F",
     double size, clippedSize;
     Sample2D rescaledSamples[count];
     double minX = +INFINITY, maxX = -INFINITY, minY = +INFINITY, maxY = -INFINITY;
+    double totalT;
     // Compute size, clippedSize
     // Rescale points to lie in [0,1] x [0,1]
-    
+    for (int i = 0; i < count; i++) {
+        double x = samples[i].x;
+        double y = samples[i].y;
+        minX = MIN(x, minX);
+        minY = MIN(y, minY);
+        maxX = MAX(x, maxX);
+        maxY = MAX(y, maxY);
+    }
+
+    size = MAX(maxX - minX, maxY - minY);
+    clippedSize = MAX(size, minSize);
+
+    for (int i = 0; i < count; i++) {
+        rescaledSamples[i].x = (samples[i].x - minX) / clippedSize;
+        rescaledSamples[i].y = (samples[i].y - minY) / clippedSize;
+        rescaledSamples[i].t = samples[i].t;
+    }
+
     // -- TASK 1B --
     double features[N_FEATURES] = {};
     // Classify each point according to which zone of a 3x3 Tic-Tac-Toe board it would fall in
     // Compute the time spent in each zone and the distance traveled horizontally and vertically
-    
+
+    // Initialize features vector to 0, except set the last value to 1.0.
+    memset(features, 0, sizeof(features));
+    features[N_FEATURES - 1] = 1.0;
+
+    double totalTime = rescaledSamples[count - 1].t - rescaledSamples[0].t;
+    for (int i = 1; i < count; i++) {
+        double midX = (rescaledSamples[i].x + rescaledSamples[i - 1].x) / 2;
+        double midY = (rescaledSamples[i].y + rescaledSamples[i - 1].y) / 2;
+        
+        // We define nine zones (0-8) in a 3x3 drawing area, with the top left
+        // as zone 0 and bottom right as zone 8. We can find the zone of the
+        // current line segment simply by transforming the midpoint to a
+        // coordinate pair on the 3x3 grid and calculating the zone number as
+        // the sum of the x-coordinate and three times the y-coordinate.
+        int xZone = (midX < 1.0) ? (int) (midX * 3) : 2;
+        int yZone = (midY < 1.0) ? (int) (midY * 3) : 2;
+        int zone = xZone + (3 * yZone);
+
+        features[zone * N_FEATURES_PER_ZONE] += (rescaledSamples[i].t - rescaledSamples[i - 1].t) / totalTime;
+        features[(zone * N_FEATURES_PER_ZONE) + 1] += rescaledSamples[i].x - rescaledSamples[i - 1].x;
+        features[(zone * N_FEATURES_PER_ZONE) + 2] += rescaledSamples[i].y - rescaledSamples[i - 1].y;
+    }
+
     // -- TASK 1C --
 #if TRAINING
     // Use this code if you want to do additional training
@@ -87,8 +128,19 @@ static NSString *const labels[N_LABELS+1] = {@"A", @"B", @"C", @"D", @"E", @"F",
     // -- TASK 1E --
     int best_label = N_LABELS;
     double best_score = -INFINITY;
+
     // Dot product with gesture templates in weights[][]
-    
+    for (int i = 0; i < N_LABELS; i++) {
+        double score = 0;
+        for (int j = 0; j < N_FEATURES; j++) {
+            score += features[j] * weights[i][j];
+        }
+        if (score > best_score) {
+            best_score = score;
+            best_label = i;
+        }
+    }
+
 #if !TRAINING
     // Report strongest match
     NSLog(@"Matched '%@' (score %+.5f)", labels[best_label], best_score);
@@ -104,15 +156,31 @@ static NSString *const labels[N_LABELS+1] = {@"A", @"B", @"C", @"D", @"E", @"F",
     // -- TASK 3A --
     // Estimate left-right, up-down axes by averaging orientation over time:
     GLKMatrix3 M = {};
+
     // For each i, convert samples[i].attitude to a 3x3 matrix and sum it into M.
     // Then find the rotation matrix most similar to the resulting sum.
-    
+    for (int i = 0; i < count; i++) {
+        M = GLKMatrix3Add(M, GLKMatrix3MakeWithQuaternion(samples[i].attitude));
+    }
+
+    double scale = 1.0/count;
+    GLKMatrix3 averagingMatrix = GLKMatrix3Make(scale, 0, 0,
+                                                0, scale, 0,
+                                                0, 0, scale);
+    M = NearestRotation(GLKMatrix3Multiply(M, averagingMatrix));
+
     // -- TASK 3B --
     // Project points to 2D:
     // For each i, form the matrix-vector product of M with samples[i].location
     // and copy the transformed x and y coordinates, along with the timestamp,
     // to samples2D[i].
-    
+    for (int i = 0; i < count; i++) {
+        GLKVector3 transform = GLKMatrix3MultiplyVector3(M, samples[i].location);
+        samples2D[i].x = transform.x;
+        samples2D[i].y = transform.y;
+        samples2D[i].t = samples[i].t;
+    }
+
     // Apply 2-D solution
     [self processGesture2DWithSamples:samples2D count:count minSize:minSize];
 }

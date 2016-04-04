@@ -84,14 +84,34 @@ static inline GLKVector3 GLKVector3FromCMAcceleration(CMAcceleration acceleratio
     
     // -- TASK 2A --
     GLKVector3 acceleration = userAcceleration;
+
     // rotate acceleration from instantaneous coordinates into persistent coordinates
+    acceleration = GLKVector3MultiplyScalar(GLKQuaternionRotateVector3(attitude, acceleration), -1.0);
     
     // -- TASK 2B --
     // integrate acceleration into _velocity and _velocity into _position
-    
+
     // -- TASK 2C --
     // apply your choice of braking to _velocity and _position to stabilize the integration loop
-    
+
+    // Stabilization via exponential damping.
+    double alpha = 0.25;
+    GLKVector3 velocityPrime =
+        GLKVector3Add(
+            GLKVector3MultiplyScalar(_velocity, exp(-1*alpha*dt/2)),
+            GLKVector3MultiplyScalar(acceleration, dt/2)
+        );
+    _position =
+        GLKVector3Add(
+            GLKVector3MultiplyScalar(_position, exp(-1*alpha*dt)),
+            GLKVector3MultiplyScalar(velocityPrime, dt)
+        );
+    _velocity =
+        GLKVector3Add(
+            GLKVector3MultiplyScalar(velocityPrime, exp(-1*alpha*dt/2)),
+            GLKVector3MultiplyScalar(acceleration, dt/2)
+        );
+
     // add the new data to the log
     [self appendPoint:_position attitude:attitude];
 }
