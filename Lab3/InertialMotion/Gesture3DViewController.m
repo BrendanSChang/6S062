@@ -95,7 +95,7 @@ static inline GLKVector3 GLKVector3FromCMAcceleration(CMAcceleration acceleratio
     // apply your choice of braking to _velocity and _position to stabilize the integration loop
 
     // Stabilization via exponential damping.
-    double alpha = 0.25;
+    double alpha = 0.75;
     GLKVector3 velocityPrime =
         GLKVector3Add(
             GLKVector3MultiplyScalar(_velocity, exp(-1*alpha*dt/2)),

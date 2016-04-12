@@ -188,7 +188,7 @@
 				TargetAttributes = {
 					AEB26FCD1C860C5C00F9CE54 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 69HBCM3B85;
+						DevelopmentTeam = F86979MS54;
 					};
 				};
 			};
@@ -359,7 +359,7 @@
 				INFOPLIST_FILE = InertialMotion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.InertialMotion;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.InertialMotion123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -374,7 +374,7 @@
 				INFOPLIST_FILE = InertialMotion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.InertialMotion;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.InertialMotion123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

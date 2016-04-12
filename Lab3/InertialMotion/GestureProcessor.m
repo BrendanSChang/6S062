@@ -70,6 +70,7 @@ static NSString *const labels[N_LABELS+1] = {@"A", @"B", @"C", @"D", @"E", @"F",
         maxY = MAX(y, maxY);
     }
 
+    totalT = samples[count - 1].t - samples[0].t;
     size = MAX(maxX - minX, maxY - minY);
     clippedSize = MAX(size, minSize);
 
@@ -80,15 +81,14 @@ static NSString *const labels[N_LABELS+1] = {@"A", @"B", @"C", @"D", @"E", @"F",
     }
 
     // -- TASK 1B --
-    double features[N_FEATURES] = {};
+    double features[N_FEATURES] = { 0 };
     // Classify each point according to which zone of a 3x3 Tic-Tac-Toe board it would fall in
     // Compute the time spent in each zone and the distance traveled horizontally and vertically
 
     // Initialize features vector to 0, except set the last value to 1.0.
-    memset(features, 0, sizeof(features));
+    // memset(features, 0, sizeof(features));
     features[N_FEATURES - 1] = 1.0;
 
-    double totalTime = rescaledSamples[count - 1].t - rescaledSamples[0].t;
     for (int i = 1; i < count; i++) {
         double midX = (rescaledSamples[i].x + rescaledSamples[i - 1].x) / 2;
         double midY = (rescaledSamples[i].y + rescaledSamples[i - 1].y) / 2;
@@ -102,7 +102,7 @@ static NSString *const labels[N_LABELS+1] = {@"A", @"B", @"C", @"D", @"E", @"F",
         int yZone = (midY < 1.0) ? (int) (midY * 3) : 2;
         int zone = xZone + (3 * yZone);
 
-        features[zone * N_FEATURES_PER_ZONE] += (rescaledSamples[i].t - rescaledSamples[i - 1].t) / totalTime;
+        features[zone * N_FEATURES_PER_ZONE] += (rescaledSamples[i].t - rescaledSamples[i - 1].t) / totalT;
         features[(zone * N_FEATURES_PER_ZONE) + 1] += rescaledSamples[i].x - rescaledSamples[i - 1].x;
         features[(zone * N_FEATURES_PER_ZONE) + 2] += rescaledSamples[i].y - rescaledSamples[i - 1].y;
     }
